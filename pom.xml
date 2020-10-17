@@ -55,6 +55,7 @@
 	</build>
 	-->
 
+	<!-- https://devcenter.heroku.com/articles/java-webapp-runner -->
 	<build>
 		<plugins>
 			<plugin>
@@ -94,7 +95,7 @@
 								<artifactItem>
 									<groupId>javax</groupId>
 									<artifactId>javaee-endorsed-api</artifactId>
-									<version>8.0</version>
+									<version>6.0</version>
 									<type>jar</type>
 								</artifactItem>
 							</artifactItems>
