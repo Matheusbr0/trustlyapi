@@ -26,16 +26,21 @@ public class GitHubDirectory {
     private List<GitHubFile> gitHubFileList;
     private List<GitHubDirectory> gitHubDirectoryList;
 
-    public GitHubDirectory(String path) throws Exception{
+    public GitHubDirectory(String path) {
         this.path = path;
-        this.html = new Html(this.path);
-        this.filesDivTag = HtmlUtil.getTagWithTextInInitTag(this.html.getContent(), "div", DIV_FILES_TAG_CONTENT);
-        this.filesRownDivTags = HtmlUtil.getTagsWithTextInInitTag(
-                this.filesDivTag.getContent(), "div", DIV_FILES_ROWN_TAG_CONTENT
-        );
+        try {
+            //System.out.println("Loading Directory " + this.path);
+            this.html = new Html(this.path);
+            this.filesDivTag = HtmlUtil.getTagWithTextInInitTag(this.html.getContent(), "div", DIV_FILES_TAG_CONTENT);
+            this.filesRownDivTags = HtmlUtil.getTagsWithTextInInitTag(
+                    this.filesDivTag.getContent(), "div", DIV_FILES_ROWN_TAG_CONTENT
+            );
 
-        this.initFolders();
-        this.initFiles();
+            this.initFolders();
+            this.initFiles();
+        }catch (Exception ex){
+            System.out.println("Error loading directory: " + this.path);
+        }
         //System.out.println("Directory " + this.path + " loaded!");
     }
 

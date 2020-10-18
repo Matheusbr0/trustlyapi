@@ -15,7 +15,8 @@ public class GitHubFile {
     private static final String LINE_SIZE_DIV_TAG = " class=\"text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0\"";
     private static final String LINE_SIZE_DIVIDER = "<span class=\"file-info-divider\"></span>";
 
-    private static final String SIZE_BYTE = "Bytes";
+    private static final String SIZE_BYTE = "Byte";
+    private static final String SIZE_BYTES = "Bytes";
     private static final String SIZE_KB = "KB";
     private static final String SIZE_MB = "MB";
 
@@ -29,14 +30,24 @@ public class GitHubFile {
 
     public GitHubFile(String path) throws Exception{
         this.path = path;
-        //System.out.println("=============================================");
-        this.html = new Html(this.path);
-        String[] pathSplit = this.path.split("/");
-        this.fileName = pathSplit[pathSplit.length - 1];
-        this.extension = this.fileName.substring(this.fileName.indexOf("."));
+        try {
+            //System.out.println("=============================================");
+            //System.out.println("Loading File " + this.path);
+            this.html = new Html(this.path);
+            String[] pathSplit = this.path.split("/");
+            this.fileName = pathSplit[pathSplit.length - 1];
+            if (this.fileName.contains(".")) {
+                this.extension = this.fileName.substring(this.fileName.indexOf("."));
+            } else {
+                this.extension = "";
+            }
 
-        this.initFile();
-        //System.out.println("File " + this.path + " loaded!");
+            this.initFile();
+            //System.out.println("File " + this.path + " loaded!");
+        }catch (Exception ex){
+            System.out.println("Error loading file: " + this.path + ". " + ex.getMessage());
+            throw ex;
+        }
     }
 
     private void initFile(){
@@ -56,7 +67,9 @@ public class GitHubFile {
     }
 
     private int getBytesFromString(String sizeString){
-        if (sizeString.contains(SIZE_BYTE)){
+        if (sizeString.contains(SIZE_BYTES)){
+            return Integer.valueOf(sizeString.replace(SIZE_BYTES, "").trim());
+        }else if (sizeString.contains(SIZE_BYTE)){
             return Integer.valueOf(sizeString.replace(SIZE_BYTE, "").trim());
         }else if (sizeString.contains(SIZE_KB)){
             return new BigDecimal(sizeString.replace(SIZE_KB, "").trim()).multiply(new BigDecimal("1000")).intValue();
