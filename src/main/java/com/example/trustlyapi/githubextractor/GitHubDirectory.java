@@ -14,8 +14,8 @@ public class GitHubDirectory {
     public static final String GITHUB_URL                 = "https://github.com";
     public static final String DIV_FILES_TAG_CONTENT      = " role=\"grid\" aria-labelledby=\"files\"";
     public static final String DIV_FILES_ROWN_TAG_CONTENT = " role=\"row\" class=\"Box-row Box-row--focus-gray py-2 d-flex position-relative js-navigation-item \"";
-    public static final String SVG_DIRECTORY_ARIA_LABEL   = " color=\"blue-3\" aria-label=\"Directory\" height=\"16\" class=\"octicon octicon-file-directory color-blue-3\"";
-    public static final String SVG_FILE_ARIA_LABEL        = " color=\"gray-light\" aria-label=\"File\" height=\"16\" class=\"octicon octicon-file text-gray-light\"";
+    public static final String SVG_DIRECTORY_ARIA_LABEL   = " aria-label=\"Directory\"";
+    public static final String SVG_FILE_ARIA_LABEL        = " aria-label=\"File\"";
     public static final String A_DIRECTORY_FILE_CONTENT   = " class=\"js-navigation-open link-gray-dark\"";
 
     private String path;
@@ -29,7 +29,7 @@ public class GitHubDirectory {
     public GitHubDirectory(String path) {
         this.path = path;
         try {
-            //System.out.println("Loading Directory " + this.path);
+            System.out.println("Loading Directory " + this.path);
             this.html = new Html(this.path);
             this.filesDivTag = HtmlUtil.getTagWithTextInInitTag(this.html.getContent(), "div", DIV_FILES_TAG_CONTENT);
             this.filesRownDivTags = HtmlUtil.getTagsWithTextInInitTag(

@@ -1,3 +1,4 @@
 HEROKU: https://dashboard.heroku.com/apps/trustlyapi
 URL:    https://trustlyapi.herokuapp.com/
+GIT:    https://github.com/Matheusbr0/trustlyapi
 LOCAL:  http://localhost:8080/
